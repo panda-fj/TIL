@@ -6,7 +6,6 @@
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
 
-
 def test(driver: WebDriver):
     driver.get(url)
 
@@ -20,10 +19,8 @@ test(driver)
 from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
 
-
 def test(element: WebElement):
     text = element.text
-
 
 driver = webdriver.Chrome()
 driver.get(url)
@@ -40,13 +37,11 @@ from typing import List
 from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
 
-
 def test(elements: List[WebElement]):
     for element in elements:
         print(element.text)
 
-driver = web
-driver.Chrome()
+driver = webdriver.Chrome()
 driver.get(url)
 elements = driver.find_elements(By.TAG_NAME, "tr")
 
