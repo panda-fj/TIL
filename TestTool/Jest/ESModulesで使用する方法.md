@@ -1,7 +1,7 @@
-# ECMAScriptで使用する方法
+# ESModulesで使用する方法
 
 Windowsを想定  
-JestはCommonJSを
+JestはCommonJSを前提にしているため、ESModulesで使用するにためには準備が必要
 
 ## cross-envのインストール
 
