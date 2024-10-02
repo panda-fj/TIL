@@ -4,9 +4,8 @@
 
 ## コード例（JS/CMS）
 
-`a.js`
-
 ```js
+// a.js
 class TestClass {
     constructor(num) {
         this.num = num
@@ -16,4 +15,23 @@ class TestClass {
         return numA + numB + this.num
     }
 }
+```
+
+```js
+// a.test.js
+const TestClass = require("./a")
+jest.mock("./a", () => {
+    return jest.fn().mockImplementation(() => {
+        return {
+            calc: jest.fn().mockReturnValue(20)
+        };
+    });
+});
+
+test("" ,() => {
+    a = new TestClass(10);
+    expect(TestClass).toHaveBeenCalled(); // pass
+    expect(a.calc(1, 5)).toBe(16);
+    // failed (Expected: 16 Received: 20)
+})
 ```
