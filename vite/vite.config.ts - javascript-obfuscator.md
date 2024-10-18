@@ -48,19 +48,19 @@ const obfuscatedCode = javascriptObfuscator.obfuscate(originalCode, {
 
 ```
 
-`generateBundle(outputOptions, bundle)`  
-ビルドされたバンドルファイルが生成される直前に実行されるRollupのフック。生成されたコードに対して最後の処理を行うことができる。
-- `outputOptions`: 出力に関するオプション。  
-- `bundle`: バンドルされたファイル群のオブジェクト。このオブジェクトの中に生成されたJavaScriptファイルが格納される。
+* `generateBundle(outputOptions, bundle)`  
+ビルドされたバンドルファイルが生成される直前に実行されるRollupのフック。生成されたコードに対して最後の処理を行うことができる。  
+`outputOptions`: 出力に関するオプション。  
+`bundle`: バンドルされたファイル群のオブジェクト。このオブジェクトの中に生成されたJavaScriptファイルが格納される。
 
-`for (const fileName in bundle) {...}`  
+* `for (const fileName in bundle) {...}`  
 `bundle`オブジェクト内には複数のJavaScriptファイル（chunk）が含まれていることがあるため、ループを使ってすべてのファイルに処理を適用する。  
-- `if (bundle[fileName].type === 'chunk'):` JavaScriptファイル（chunk）に対してのみ処理を適用するようにしている。
+`if (bundle[fileName].type === 'chunk'):` JavaScriptファイル（chunk）に対してのみ処理を適用するようにしている。
 
-`javascriptObfuscator.obfuscate(originalCode, {...})`  
+* `javascriptObfuscator.obfuscate(originalCode, {...})`  
 `javascript-obfuscator`の`obfuscate`メソッドを使って、生成されたJavaScriptコードを難読化する。元のコードとオプションを受け取り、難読化されたコードを返す。 
   
-`bundle[fileName].code = obfuscatedCode;`   
+* `bundle[fileName].code = obfuscatedCode;`   
 難読化されたコードを元のバンドルオブジェクトに置き換える。これにより、ビルド後の最終的なファイルに難読化されたコードが含まれることになる。
 
 
