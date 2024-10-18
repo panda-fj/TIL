@@ -67,7 +67,7 @@ const obfuscatedCode = javascriptObfuscator.obfuscate(originalCode, {
 
 ## Javascript
 
-型アノテーションがない
+型アノテーションがないやつ
 
 ```js
 import { defineConfig } from 'vite';
