@@ -10,32 +10,29 @@ import { Plugin, OutputOptions, OutputBundle } from 'rollup';
 export default defineConfig({
     build: {
         rollupOptions: {
-            output: {
-                plugins: [
-                    {
-                        name: 'obfuscator',
-                        generateBundle(outputOptions: OutputOptions, bundle: OutputBundle) {
-                            for (const fileName in bundle) {
-                                if (bundle[fileName].type === 'chunk') {
-                                    const chunk = bundle[fileName];
-                                    if (chunk && 'code' in chunk) {
-                                        const originalCode = chunk.code;
-                                        const obfuscatedCode = javascriptObfuscator.obfuscate(originalCode, {
-                                            compact: true,
-                                            controlFlowFlattening: true
-                                        }).getObfuscatedCode();
-                                        chunk.code = obfuscatedCode;
-                                    }
+            plugins: [
+                {
+                    name: 'obfuscator',
+                    generateBundle(outputOptions: OutputOptions, bundle: OutputBundle) {
+                        for (const fileName in bundle) {
+                            if (bundle[fileName].type === 'chunk') {
+                                const chunk = bundle[fileName];
+                                if (chunk && 'code' in chunk) {
+                                    const originalCode = chunk.code;
+                                    const obfuscatedCode = javascriptObfuscator.obfuscate(originalCode, {
+                                        compact: true,
+                                        controlFlowFlattening: true
+                                    }).getObfuscatedCode();
+                                    chunk.code = obfuscatedCode;
                                 }
                             }
                         }
-                    } as Plugin
-                ]
-            }
+                    }
+                } as Plugin
+            ]
         }
     }
 });
-
 ```
 
 ## 
@@ -76,27 +73,24 @@ import javascriptObfuscator from 'javascript-obfuscator';
 export default defineConfig({
     build: {
         rollupOptions: {
-            output: {
-                plugins: [
-                    {
-                        name: 'obfuscator',
-                        generateBundle(outputOptions, bundle) {
-                            for (const fileName in bundle) {
-                                if (bundle[fileName].type === 'chunk') {
-                                    const originalCode = bundle[fileName].code;
-                                    const obfuscatedCode = javascriptObfuscator.obfuscate(originalCode, {
-                                        compact: true,
-                                        controlFlowFlattening: true
-                                    }).getObfuscatedCode();
-                                    bundle[fileName].code = obfuscatedCode;
-                                }
+            plugins: [
+                {
+                    name: 'obfuscator',
+                    generateBundle(outputOptions, bundle) {
+                        for (const fileName in bundle) {
+                            if (bundle[fileName].type === 'chunk') {
+                                const originalCode = bundle[fileName].code;
+                                const obfuscatedCode = javascriptObfuscator.obfuscate(originalCode, {
+                                    compact: true,
+                                    controlFlowFlattening: true
+                                }).getObfuscatedCode();
+                                bundle[fileName].code = obfuscatedCode;
                             }
                         }
                     }
-                ]
-            }
+                }
+            ]
         }
     }
 });
-
 ```
