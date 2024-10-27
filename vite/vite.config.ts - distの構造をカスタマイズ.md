@@ -2,7 +2,7 @@
 
 buildするファイルを指定して、`dist`内の構造を変更するときは、`rollupOptions` の `input` と `output` を編集する。
 
-## ルート内の特定のディレクトリを、構造・ファイル名をそのまま build する
+## ルート内の特定のディレクトリ（サブディレクトリは含まない）を、構造・ファイル名をそのまま build する
 
 `popup` フォルダと、`src` フォルダをbuild対象にする
 
@@ -32,6 +32,11 @@ const popupFiles = getFilesWithoutExtension('popup');
 // srcフォルダ内のすべてのファイルを動的に取得
 const srcFiles = getFilesWithoutExtension('src');
 
+// root内の特定のファイルを追加
+const additionalFiles = {
+    '特定のファイル名': resolve(__dirname, '特定のファイル名.js'), // 例: 'main': resolve(__dirname, 'main.js')
+};
+
 
 export default defineConfig({
     build: {
@@ -56,4 +61,37 @@ export default defineConfig({
         }
     }
 });
+```
+
+## サブディレクトリを含める場合
+
+インポートパスの問題が残るが、アセットを移動させるのには使えるかも
+
+```ts
+function getFilesWithoutExtension(dirName: string): Record<string, string> {
+    const result: Record<string, string> = {};
+
+    function traverseDirectory(currentDir: string) {
+        const files = fs.readdirSync(currentDir);
+
+        files.forEach(file => {
+            const filePath = resolve(currentDir, file);
+            const relativePath = path.relative(__dirname, filePath);
+
+            if (fs.statSync(filePath).isDirectory()) {
+                // サブディレクトリの場合は再帰処理を行う
+                traverseDirectory(filePath);
+            } else {
+                // ファイルの場合はRecordに追加
+                const key = path.join(path.dirname(relativePath), path.basename(relativePath, path.extname(relativePath)));
+                result[key] = filePath;
+            }
+        });
+    }
+
+    // 最初のディレクトリから走査を開始
+    traverseDirectory(resolve(__dirname, dirName));
+
+    return result;
+}
 ```
