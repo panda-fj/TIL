@@ -7,7 +7,7 @@ print(result)
 
 `subprocess.run`の第一引数にコマンドを入れる。  
 
-## 例：FFmpegを実行したとき
+## 例：ffmpegを実行するとき
 
 ```py
 command = f"ffmpeg -i \"{url}\" \"{title}.mp3\""
