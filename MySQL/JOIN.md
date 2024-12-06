@@ -21,10 +21,6 @@ LEFT JOIN orders ON customers.id = orders.customer_id;
 
 右側のテーブルの全データを取得し、左側テーブルに関連するデータがない場合は NULL が表示される。
 
-## UNION
-
-両方のテーブルの全データを取得し、関連するデータがない場合は NULL が表示される。
-
 ## CROSS JOIN
 
 すべての組み合わせ（直積）を取得する。条件を指定しないと膨大なデータ量になる。
