@@ -10,7 +10,7 @@
 model User {
   id    Int    @id @default(autoincrement())
   name  String
-  posts Post[] // UserとPostは1対多の関係
+  posts Post[] // UserとPostは1対多の関係-
 }
 
 model Post {
