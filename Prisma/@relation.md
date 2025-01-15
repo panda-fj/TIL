@@ -6,7 +6,7 @@
 
 ## 基本（1対多）
 
-```
+```prisma
 model User {
   id    Int    @id @default(autoincrement())
   name  String
@@ -31,7 +31,7 @@ model Post {
 
 ## 1対1
 
-```
+```prisma
 model Profile {
   id     Int    @id @default(autoincrement())
   bio    String
